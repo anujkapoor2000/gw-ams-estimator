@@ -272,7 +272,7 @@ export default function App() {
             <Section title="Commercial Parameters" icon="💰" accent={C.navy}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
                 <div>
-                  <Slider label="Blended Team Rate (USD/hr)" min={55} max={150} value={teamRate} onChange={setTeamRate} unit=" USD" />
+                  <Slider label={`Blended Team Rate (${currency}/hr)`} min={55} max={150} value={teamRate} onChange={setTeamRate} unit={" " + currency} />
                   <Slider label="Sprints per Year" min={12} max={26} value={sprintsPerYear} onChange={setSprintsPerYear} unit="" />
                   <Slider label="Story Points per Sprint" min={10} max={40} value={spPerSprint} onChange={setSpPerSprint} unit=" SP" />
                 </div>
