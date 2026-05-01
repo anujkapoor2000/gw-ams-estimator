@@ -10,6 +10,82 @@
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       body { background: #F0F4FA; }
+
+      /* Custom range input */
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #003087;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,48,135,0.35);
+        border: 3px solid #fff;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 14px rgba(0,48,135,0.45);
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #003087;
+        cursor: pointer;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 8px rgba(0,48,135,0.35);
+      }
+
+      /* Tab hover */
+      .tab-btn:not(.tab-active):hover {
+        background: rgba(0,48,135,0.06) !important;
+        color: #003087 !important;
+      }
+
+      /* Section card hover */
+      .section-card { transition: box-shadow 0.22s ease; }
+      .section-card:hover { box-shadow: 0 8px 36px rgba(0,48,135,0.13) !important; }
+
+      /* KPI card hover */
+      .kpi-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+      .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,48,135,0.18) !important; }
+
+      /* AI card hover */
+      .ai-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+      .ai-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,48,135,0.14) !important; }
+
+      /* Table row hover */
+      .data-table tbody tr { transition: background 0.15s; }
+      .data-table tbody tr:hover td { background: #EBF4FF !important; }
+
+      /* Export / action buttons */
+      .action-btn { transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s; }
+      .action-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.18) !important; }
+
+      /* Currency button hover */
+      .cur-btn { transition: all 0.2s ease; }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #F0F4FA; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb { background: #CBD5E0; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #A0AEC0; }
+
+      /* Fade-in for tab content */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .fade-in { animation: fadeInUp 0.28s ease both; }
     </style>
   </head>
   <body>
