@@ -1,6 +1,8 @@
 // ─── Export Utilities ─────────────────────────────────────────────────────────
-// Handles PPTX (via PptxGenJS CDN) and PDF (via jsPDF CDN) exports.
+// Handles PPTX (via pptxgenjs npm) and PDF (via jsPDF CDN) exports.
 // Both exports receive live computed state so numbers always match the UI.
+
+import PptxGenJS from "pptxgenjs";
 
 const NTT_BLUE = "003087";
 const NTT_RED = "E4002B";
@@ -9,7 +11,7 @@ const NTT_LIGHT = "EEF3FB";
 const NTT_MID = "64748B";
 const WHITE = "FFFFFF";
 
-// ─── Load CDN script once ─────────────────────────────────────────────────────
+// ─── Load CDN script once (used only for jsPDF) ───────────────────────────────
 function loadScript(src) {
   return new Promise((resolve, reject) => {
     if (document.querySelector('script[src="' + src + '"]')) {
@@ -22,10 +24,6 @@ function loadScript(src) {
     s.onerror = reject;
     document.head.appendChild(s);
   });
-}
-
-async function ensurePptxGen() {
-  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js");
 }
 
 async function ensureJsPDF() {
@@ -127,8 +125,6 @@ function addTable(slide, headers, rows, yPos, opts) {
 // ─── PPTX EXPORT ──────────────────────────────────────────────────────────────
 
 export async function exportToPptx(data) {
-  await ensurePptxGen();
-  const PptxGenJS = window.PptxGenJS;
   const prs = new PptxGenJS();
   prs.layout = "LAYOUT_WIDE";
   prs.author = "NTT DATA Guidewire Practice";
