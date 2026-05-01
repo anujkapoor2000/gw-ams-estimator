@@ -265,15 +265,7 @@ export default function App() {
         background: "#000D2E", padding: "7px 32px",
         display: "flex", alignItems: "center", justifyContent: "space-between"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{
-            background: C.red, color: C.white,
-            padding: "3px 13px", borderRadius: 3,
-            fontWeight: 800, fontSize: 12, letterSpacing: "0.1em",
-            fontFamily: "'Barlow Condensed', sans-serif"
-          }}>NTT DATA</div>
-          <span style={{ color: "#4A7FD4", fontSize: 11, letterSpacing: "0.12em", fontWeight: 600, textTransform: "uppercase" }}>Guidewire Practice</span>
-        </div>
+        <span style={{ color: "#4A7FD4", fontSize: 11, letterSpacing: "0.12em", fontWeight: 600, textTransform: "uppercase" }}>Guidewire Practice</span>
         <span style={{ color: "#4A7FD4", fontSize: 10, letterSpacing: "0.06em" }}>CONFIDENTIAL &amp; PROPRIETARY</span>
       </div>
 
@@ -561,11 +553,11 @@ export default function App() {
 
             <Section title="Programme Milestones & Phase Timeline" icon="🗓" accent={C.navy}>
               {[
-                { phase: "Phase 0 — KT & Mobilisation", months: "Months 1-"+ktMonths, color: C.amber, milestones: ["Shadow current SI across all GW modules and integrations","Document runbooks, incident playbooks, Gosu code inventory","Onboard NTT DATA AMS team (L2/L3/Enhancement squads)","Establish tooling: ITSM, Jira, monitoring dashboards, GW Cloud access","Integration mapping and API catalogue for all 5-6 integrations","KT sign-off gate: knowledge assessment and runbook validation"] },
+                { phase: "Phase 0 — KT & Mobilisation", months: "Months 1-"+ktMonths, color: C.amber, milestones: ["Shadow current SI across all GW modules and integrations","Document runbooks, incident playbooks, Gosu code inventory","Onboard AMS team (L2/L3/Enhancement squads)","Establish tooling: ITSM, Jira, monitoring dashboards, GW Cloud access","Integration mapping and API catalogue for all 5-6 integrations","KT sign-off gate: knowledge assessment and runbook validation"] },
                 { phase: "Phase 1 — Calibration & Stabilisation", months: "Months "+(ktMonths+1)+"-"+(ktMonths+calMonths), color: C.teal, milestones: ["Dual-run operations alongside incumbent SI (wound-down)","SLA measurement begins - no penalties in calibration window","Baseline incident volumes and resolution metrics established","First sprint of enhancements delivered to prove velocity","Integration health dashboards go live","Calibration review report - agreed baseline for SLA credit framework"] },
-                { phase: "Year 1 — Steady-State AMS", months: "Months 7-18", color: C.blue, milestones: ["Full SLA accountability begins (P1-P4 credits/penalties active)","AI Incident Predictor v1 deployed - reduces MTTR by ~15%","Gosu Copilot active for L3 team - code fix acceleration","All 6 integration pipelines under NTT DATA monitoring","Quarterly Business Reviews (QBRs) with client leadership","Enhancement backlog velocity: target 20 SP/sprint sustained"] },
+                { phase: "Year 1 — Steady-State AMS", months: "Months 7-18", color: C.blue, milestones: ["Full SLA accountability begins (P1-P4 credits/penalties active)","AI Incident Predictor v1 deployed - reduces MTTR by ~15%","Gosu Copilot active for L3 team - code fix acceleration","All 6 integration pipelines under managed monitoring","Quarterly Business Reviews (QBRs) with client leadership","Enhancement backlog velocity: target 20 SP/sprint sustained"] },
                 { phase: "Year 2 — Optimise & Accelerate", months: "Months 19-30", color: C.green, milestones: ["AI-driven auto-triage covers 30%+ of L2 tickets","Proactive problem management: shift-left from L2 to L1","GW Cloud upgrade support: annual release cycle managed","Expand AI capabilities: Release Notes Summariser, Test DataHub","Tech Debt Radar deployed - 100+ Gosu anti-patterns scanned","Renegotiate SLA targets upward based on proven performance"] },
-                { phase: "Year 3 — Innovation & Value Expansion", months: "Months 31-42", color: C.purple, milestones: ["AI handles 40%+ of routine L2 incidents autonomously","Predictive analytics: forecast incident spikes pre-business events","Digital/Jutro accelerators: component library, A11y automation","Contract renewal preparation: benchmarking and value story","Potential scope expansion: new markets, additional modules","Innovation showcase: NTT DATA AI accelerator demonstration"] },
+                { phase: "Year 3 — Innovation & Value Expansion", months: "Months 31-42", color: C.purple, milestones: ["AI handles 40%+ of routine L2 incidents autonomously","Predictive analytics: forecast incident spikes pre-business events","Digital/Jutro accelerators: component library, A11y automation","Contract renewal preparation: benchmarking and value story","Potential scope expansion: new markets, additional modules","Innovation showcase: AI accelerator demonstration"] },
               ].map((p) => (
                 <div key={p.phase} style={{ marginBottom: 22, borderLeft: "4px solid "+p.color, paddingLeft: 18, paddingBottom: 4 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
@@ -692,13 +684,13 @@ export default function App() {
                 <div style={{ fontSize: 12, color: C.darkGray, lineHeight: 1.8 }}>
                   KT spans <strong>{ktMonths} months</strong>, followed by <strong>{calMonths} months calibration</strong>.
                   SLA penalties are not applicable until Month {ktMonths + calMonths + 1}.
-                  NTT DATA operates in shadow mode for the first {Math.ceil(ktMonths/2)} months, then takes primary accountability with incumbent on standby.
+                  The AMS team operates in shadow mode for the first {Math.ceil(ktMonths/2)} months, then takes primary accountability with incumbent on standby.
                 </div>
               </div>
               {[
-                { month:"Month 1", title:"Discovery & Shadow", color:C.amber, activities:["Onboard NTT DATA AMS team leads (L2, L3, Enhancement, Integration)","Receive all documentation from incumbent SI: runbooks, architecture docs, Gosu code repos","Shadow incidents across PC, CC, BC, Digital - observe triage and resolution","Map all 5-6 integrations: endpoints, auth, data flows, error patterns","Establish GW Cloud access, ITSM credentials, monitoring tool access","Interview incumbent team: tribal knowledge capture sessions"], deliverable:"Discovery Report, Knowledge Gap Analysis, Onboarding Checklist" },
-                { month:"Month 2", title:"Runbook Creation & Parallel Operations", color:C.teal, activities:["NTT DATA authors runbooks for top 50 incident patterns per module","Gosu code walkthrough: all custom extensions, business rules, plugins","Integration runbooks: error resolution for each of 5-6 integrations","First NTT DATA-led incident resolutions (with incumbent oversight)","Enhancement process walkthrough: backlog grooming, sprint delivery, GW Cloud deploy","Training completion: GW Cloud ops certification for L2/L3 team"], deliverable:"50 Runbooks, Integration Playbooks, Training Completion Report" },
-                { month:"Month 3", title:"Primary Accountability + KT Sign-Off", color:C.green, activities:["NTT DATA takes primary incident ownership across all modules","Incumbent available on advisory basis only (escalation backstop)","First sprint of enhancement delivery completed and demonstrated","KT Assessment: knowledge quiz, incident simulation exercise","Integration monitoring fully transitioned to NTT DATA dashboards","KT Sign-Off Gate: client + NTT DATA + incumbent agreement on readiness"], deliverable:"KT Sign-Off Certificate, Full Runbook Library, Go/No-Go Assessment" },
+                { month:"Month 1", title:"Discovery & Shadow", color:C.amber, activities:["Onboard AMS team leads (L2, L3, Enhancement, Integration)","Receive all documentation from incumbent SI: runbooks, architecture docs, Gosu code repos","Shadow incidents across PC, CC, BC, Digital - observe triage and resolution","Map all 5-6 integrations: endpoints, auth, data flows, error patterns","Establish GW Cloud access, ITSM credentials, monitoring tool access","Interview incumbent team: tribal knowledge capture sessions"], deliverable:"Discovery Report, Knowledge Gap Analysis, Onboarding Checklist" },
+                { month:"Month 2", title:"Runbook Creation & Parallel Operations", color:C.teal, activities:["Author runbooks for top 50 incident patterns per module","Gosu code walkthrough: all custom extensions, business rules, plugins","Integration runbooks: error resolution for each of 5-6 integrations","First team-led incident resolutions (with incumbent oversight)","Enhancement process walkthrough: backlog grooming, sprint delivery, GW Cloud deploy","Training completion: GW Cloud ops certification for L2/L3 team"], deliverable:"50 Runbooks, Integration Playbooks, Training Completion Report" },
+                { month:"Month 3", title:"Primary Accountability + KT Sign-Off", color:C.green, activities:["AMS team takes primary incident ownership across all modules","Incumbent available on advisory basis only (escalation backstop)","First sprint of enhancement delivery completed and demonstrated","KT Assessment: knowledge quiz, incident simulation exercise","Integration monitoring fully transitioned to managed dashboards","KT Sign-Off Gate: client + AMS team + incumbent agreement on readiness"], deliverable:"KT Sign-Off Certificate, Full Runbook Library, Go/No-Go Assessment" },
               ].slice(0, ktMonths).map((m) => (
                 <div key={m.month} style={{ marginBottom: 22, borderLeft: "4px solid "+m.color, paddingLeft: 18, paddingBottom: 4 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
@@ -731,11 +723,11 @@ export default function App() {
                 </div>
               </div>
               <DataTable headers={["Calibration Activity","Owner","When"]} rows={[
-                ["Track all incident volumes vs. baseline estimates","NTT DATA AMS Lead","Monthly"],
+                ["Track all incident volumes vs. baseline estimates","AMS Lead","Monthly"],
                 ["Measure actual resolution times vs. SLA targets","Service Delivery Manager","Weekly"],
                 ["Enhancement velocity: SP delivered vs. committed","Delivery Manager","Per Sprint"],
                 ["Integration uptime and error rate tracking","Integration Lead","Continuous"],
-                ["Calibration Review Report issued to client","NTT DATA SDM","Month "+(ktMonths+calMonths)],
+                ["Calibration Review Report issued to client","Service Delivery Manager","Month "+(ktMonths+calMonths)],
                 ["Agreed amended SLA baseline (if needed)","Both parties","Month "+(ktMonths+calMonths)],
                 ["SLA penalties and credits activated","Contract Live","Month "+(ktMonths+calMonths+1)],
               ]} />
@@ -744,10 +736,10 @@ export default function App() {
             <Section title="KT Risk Register" icon="⚠️" accent={C.red}>
               <DataTable headers={["Risk","Likelihood","Impact","Mitigation"]} rows={[
                 ["Incumbent SI non-cooperation / slow handover","Medium","High","Contractual KT obligations; weekly KT progress reviews with client"],
-                ["Gosu code undocumented - tribal knowledge only","High","High","Code archaeology sessions; NTT DATA Gosu Copilot assists discovery"],
+                ["Gosu code undocumented - tribal knowledge only","High","High","Code archaeology sessions; Gosu Copilot assists discovery"],
                 ["Integration credentials / access delays","Medium","Medium","Early access request; parallel credential provisioning in Month 1"],
                 ["Volume underestimate (incidents higher than baseline)","Medium","Medium","30% buffer in calibration; agree true-up mechanism"],
-                ["Key NTT DATA resource attrition during KT","Low","High","Minimum 2x coverage per role; KT docs prevent single-person dependency"],
+                ["Key resource attrition during KT","Low","High","Minimum 2x coverage per role; KT docs prevent single-person dependency"],
               ]} />
             </Section>
           </div>
@@ -759,9 +751,8 @@ export default function App() {
       <div style={{ background: C.navy, marginTop: 12 }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "36px 28px 28px", display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 48, flexWrap: "wrap" }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <div style={{ background: C.red, color: C.white, padding: "4px 14px", borderRadius: 3, fontWeight: 800, fontSize: 13, letterSpacing: "0.1em", fontFamily: "'Barlow Condensed', sans-serif" }}>NTT DATA</div>
-              <span style={{ color: "#93C5FD", fontSize: 11, letterSpacing: "0.12em", fontWeight: 600, textTransform: "uppercase" }}>Guidewire Practice</span>
+            <div style={{ marginBottom: 14 }}>
+              <span style={{ color: "#93C5FD", fontSize: 13, letterSpacing: "0.12em", fontWeight: 700, textTransform: "uppercase", fontFamily: "'Barlow Condensed', sans-serif" }}>Guidewire Practice</span>
             </div>
             <div style={{ color: "#94A3B8", fontSize: 12, lineHeight: 1.85 }}>
               Guidewire Cloud AMS Engagement Estimator<br />
@@ -783,7 +774,7 @@ export default function App() {
           </div>
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "14px 24px", textAlign: "center", color: "#475569", fontSize: 11, letterSpacing: "0.04em" }}>
-          NTT DATA — Guidewire Practice · AMS Engagement Estimator · Confidential &amp; Proprietary · {new Date().getFullYear()}
+          Guidewire Practice · AMS Engagement Estimator · Confidential &amp; Proprietary · {new Date().getFullYear()}
         </div>
       </div>
 

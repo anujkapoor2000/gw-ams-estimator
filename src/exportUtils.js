@@ -4,11 +4,11 @@
 
 import PptxGenJS from "pptxgenjs";
 
-const NTT_BLUE = "003087";
-const NTT_RED = "E4002B";
-const NTT_NAVY = "001A4E";
-const NTT_LIGHT = "EEF3FB";
-const NTT_MID = "64748B";
+const C_BLUE = "003087";
+const C_RED = "E4002B";
+const C_NAVY = "001A4E";
+const C_LIGHT = "EEF3FB";
+const C_MID = "64748B";
 const WHITE = "FFFFFF";
 
 // ─── Load CDN script once (used only for jsPDF) ───────────────────────────────
@@ -35,34 +35,26 @@ async function ensureJsPDF() {
 
 function addSlideHeader(slide, title, subtitle) {
   // Dark navy top bar
-  slide.addShape("rect", { x: 0, y: 0, w: "100%", h: 1.1, fill: { color: NTT_NAVY } });
+  slide.addShape("rect", { x: 0, y: 0, w: "100%", h: 1.1, fill: { color: C_NAVY } });
   // Red accent stripe
-  slide.addShape("rect", { x: 0, y: 1.1, w: "100%", h: 0.06, fill: { color: NTT_RED } });
-  // NTT DATA badge
-  slide.addShape("rect", { x: 0.4, y: 0.18, w: 1.0, h: 0.38, fill: { color: NTT_RED } });
-  slide.addText("NTT DATA", {
-    x: 0.4, y: 0.18, w: 1.0, h: 0.38,
-    fontSize: 10, bold: true, color: WHITE,
-    align: "center", valign: "middle",
-    fontFace: "Arial",
-  });
+  slide.addShape("rect", { x: 0, y: 1.1, w: "100%", h: 0.06, fill: { color: C_RED } });
   // Title
   slide.addText(title, {
-    x: 1.55, y: 0.14, w: 7.5, h: 0.52,
+    x: 0.4, y: 0.14, w: 9.2, h: 0.52,
     fontSize: 20, bold: true, color: WHITE,
     fontFace: "Arial", valign: "middle",
   });
   if (subtitle) {
     slide.addText(subtitle, {
-      x: 1.55, y: 0.66, w: 7.5, h: 0.32,
+      x: 0.4, y: 0.66, w: 9.2, h: 0.32,
       fontSize: 10, color: "93C5FD",
       fontFace: "Arial", valign: "middle",
     });
   }
   // Footer
-  slide.addText("NTT DATA — Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), {
+  slide.addText("Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), {
     x: 0, y: 7.1, w: "100%", h: 0.3,
-    fontSize: 8, color: NTT_MID, align: "center", fontFace: "Arial",
+    fontSize: 8, color: C_MID, align: "center", fontFace: "Arial",
   });
 }
 
@@ -72,12 +64,12 @@ function addKpiRow(slide, kpis, yPos) {
   const gap = 0.12;
   kpis.forEach((kpi, i) => {
     const x = 0.4 + i * (w + gap);
-    const col = kpi.color || NTT_BLUE;
-    slide.addShape("rect", { x, y: yPos, w, h: 1.15, fill: { color: NTT_LIGHT }, line: { color: "D1D9E6", pt: 1 } });
+    const col = kpi.color || C_BLUE;
+    slide.addShape("rect", { x, y: yPos, w, h: 1.15, fill: { color: C_LIGHT }, line: { color: "D1D9E6", pt: 1 } });
     slide.addShape("rect", { x, y: yPos, w: 0.06, h: 1.15, fill: { color: col } });
     slide.addText(kpi.label.toUpperCase(), {
       x: x + 0.14, y: yPos + 0.1, w: w - 0.2, h: 0.22,
-      fontSize: 7, color: NTT_MID, fontFace: "Arial", bold: true,
+      fontSize: 7, color: C_MID, fontFace: "Arial", bold: true,
     });
     slide.addText(kpi.value, {
       x: x + 0.14, y: yPos + 0.3, w: w - 0.2, h: 0.52,
@@ -86,7 +78,7 @@ function addKpiRow(slide, kpis, yPos) {
     if (kpi.sub) {
       slide.addText(kpi.sub, {
         x: x + 0.14, y: yPos + 0.84, w: w - 0.2, h: 0.22,
-        fontSize: 7, color: NTT_MID, fontFace: "Arial",
+        fontSize: 7, color: C_MID, fontFace: "Arial",
       });
     }
   });
@@ -96,7 +88,7 @@ function addTable(slide, headers, rows, yPos, opts) {
   const tableRows = [
     headers.map((h) => ({
       text: h,
-      options: { bold: true, color: WHITE, fill: { color: NTT_NAVY }, fontSize: 8, align: "center" },
+      options: { bold: true, color: WHITE, fill: { color: C_NAVY }, fontSize: 8, align: "center" },
     })),
     ...rows.map((row, ri) =>
       row.map((cell, ci) => ({
@@ -104,7 +96,7 @@ function addTable(slide, headers, rows, yPos, opts) {
         options: {
           fontSize: 8,
           color: "2D3748",
-          fill: { color: ri % 2 === 0 ? WHITE : NTT_LIGHT },
+          fill: { color: ri % 2 === 0 ? WHITE : C_LIGHT },
           align: ci === 0 ? "left" : "center",
           bold: ci === 0,
         },
@@ -127,7 +119,7 @@ function addTable(slide, headers, rows, yPos, opts) {
 export async function exportToPptx(data) {
   const prs = new PptxGenJS();
   prs.layout = "LAYOUT_WIDE";
-  prs.author = "NTT DATA Guidewire Practice";
+  prs.author = "Guidewire Practice";
   prs.title = "GW Cloud AMS Engagement Estimator";
 
   const {
@@ -140,16 +132,11 @@ export async function exportToPptx(data) {
 
   // ── Slide 1: Title ──────────────────────────────────────────────────────────
   const s1 = prs.addSlide();
-  s1.addShape("rect", { x: 0, y: 0, w: "100%", h: "100%", fill: { color: NTT_NAVY } });
-  s1.addShape("rect", { x: 0, y: 5.2, w: "100%", h: 2.3, fill: { color: NTT_BLUE } });
-  s1.addShape("rect", { x: 0, y: 5.15, w: "100%", h: 0.1, fill: { color: NTT_RED } });
-  s1.addShape("rect", { x: 0.4, y: 0.4, w: 1.4, h: 0.52, fill: { color: NTT_RED } });
-  s1.addText("NTT DATA", {
-    x: 0.4, y: 0.4, w: 1.4, h: 0.52,
-    fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle", fontFace: "Arial",
-  });
+  s1.addShape("rect", { x: 0, y: 0, w: "100%", h: "100%", fill: { color: C_NAVY } });
+  s1.addShape("rect", { x: 0, y: 5.2, w: "100%", h: 2.3, fill: { color: C_BLUE } });
+  s1.addShape("rect", { x: 0, y: 5.15, w: "100%", h: 0.1, fill: { color: C_RED } });
   s1.addText("GUIDEWIRE PRACTICE", {
-    x: 2.0, y: 0.48, w: 4, h: 0.36,
+    x: 0.4, y: 0.48, w: 6, h: 0.36,
     fontSize: 10, color: "93C5FD", fontFace: "Arial", valign: "middle",
   });
   s1.addText("Guidewire Cloud AMS\nEngagement Estimator", {
@@ -167,7 +154,7 @@ export async function exportToPptx(data) {
   s1.addText(selectedModules.length + " modules · " + selectedIntegrations.length + " integrations · " + sym + teamRate + "/hr blended rate", {
     x: 0.4, y: 6.1, w: 9.2, h: 0.35, fontSize: 11, color: "93C5FD", fontFace: "Arial",
   });
-  s1.addText("NTT DATA — Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), {
+  s1.addText("Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), {
     x: 0, y: 7.1, w: "100%", h: 0.3,
     fontSize: 8, color: "64748B", align: "center", fontFace: "Arial",
   });
@@ -176,28 +163,28 @@ export async function exportToPptx(data) {
   const s2 = prs.addSlide();
   addSlideHeader(s2, "Engagement Scope", "Modules, Integrations & Commercial Parameters");
   s2.addText("Guidewire Modules in Scope", {
-    x: 0.4, y: 1.3, w: 4.4, h: 0.3, fontSize: 11, bold: true, color: NTT_BLUE, fontFace: "Arial",
+    x: 0.4, y: 1.3, w: 4.4, h: 0.3, fontSize: 11, bold: true, color: C_BLUE, fontFace: "Arial",
   });
   selectedModules.forEach((m, i) => {
     s2.addShape("rect", { x: 0.4, y: 1.7 + i * 0.42, w: 4.4, h: 0.35,
-      fill: { color: i % 2 === 0 ? NTT_LIGHT : WHITE }, line: { color: "E2E8F0", pt: 0.5 } });
+      fill: { color: i % 2 === 0 ? C_LIGHT : WHITE }, line: { color: "E2E8F0", pt: 0.5 } });
     s2.addText(m, { x: 0.55, y: 1.72 + i * 0.42, w: 3, h: 0.3, fontSize: 10, bold: true, color: "2D3748", fontFace: "Arial" });
     s2.addText(m.includes("Jutro") ? "Digital" : "Core", {
       x: 3.7, y: 1.72 + i * 0.42, w: 0.9, h: 0.3, fontSize: 9,
       color: WHITE, align: "center", fontFace: "Arial",
-      fill: { color: m.includes("Jutro") ? "0891B2" : NTT_BLUE },
+      fill: { color: m.includes("Jutro") ? "0891B2" : C_BLUE },
     });
   });
   s2.addText("Cloud Integrations", {
-    x: 5.2, y: 1.3, w: 4.4, h: 0.3, fontSize: 11, bold: true, color: NTT_BLUE, fontFace: "Arial",
+    x: 5.2, y: 1.3, w: 4.4, h: 0.3, fontSize: 11, bold: true, color: C_BLUE, fontFace: "Arial",
   });
   selectedIntegrations.forEach((intg, i) => {
     s2.addShape("rect", { x: 5.2, y: 1.7 + i * 0.42, w: 4.4, h: 0.35,
-      fill: { color: i % 2 === 0 ? NTT_LIGHT : WHITE }, line: { color: "E2E8F0", pt: 0.5 } });
+      fill: { color: i % 2 === 0 ? C_LIGHT : WHITE }, line: { color: "E2E8F0", pt: 0.5 } });
     s2.addText("●  " + intg, { x: 5.35, y: 1.72 + i * 0.42, w: 4.1, h: 0.3, fontSize: 10, color: "2D3748", fontFace: "Arial" });
   });
   const paramY = 1.7 + Math.max(selectedModules.length, selectedIntegrations.length) * 0.42 + 0.15;
-  s2.addText("Commercial Parameters", { x: 0.4, y: paramY, w: 9.2, h: 0.3, fontSize: 11, bold: true, color: NTT_BLUE, fontFace: "Arial" });
+  s2.addText("Commercial Parameters", { x: 0.4, y: paramY, w: 9.2, h: 0.3, fontSize: 11, bold: true, color: C_BLUE, fontFace: "Arial" });
   const params = [
     ["Blended Rate", sym + teamRate + "/hr"],
     ["Sprints/Year", sprintsPerYear],
@@ -208,18 +195,18 @@ export async function exportToPptx(data) {
   ];
   params.forEach((p, i) => {
     const x = 0.4 + i * 1.58;
-    s2.addShape("rect", { x, y: paramY + 0.35, w: 1.48, h: 0.7, fill: { color: NTT_LIGHT }, line: { color: "D1D9E6", pt: 0.5 } });
-    s2.addShape("rect", { x, y: paramY + 0.35, w: 1.48, h: 0.06, fill: { color: NTT_RED } });
-    s2.addText(p[0], { x, y: paramY + 0.42, w: 1.48, h: 0.2, fontSize: 7, color: NTT_MID, align: "center", fontFace: "Arial" });
-    s2.addText(String(p[1]), { x, y: paramY + 0.6, w: 1.48, h: 0.38, fontSize: 16, bold: true, color: NTT_BLUE, align: "center", fontFace: "Arial" });
+    s2.addShape("rect", { x, y: paramY + 0.35, w: 1.48, h: 0.7, fill: { color: C_LIGHT }, line: { color: "D1D9E6", pt: 0.5 } });
+    s2.addShape("rect", { x, y: paramY + 0.35, w: 1.48, h: 0.06, fill: { color: C_RED } });
+    s2.addText(p[0], { x, y: paramY + 0.42, w: 1.48, h: 0.2, fontSize: 7, color: C_MID, align: "center", fontFace: "Arial" });
+    s2.addText(String(p[1]), { x, y: paramY + 0.6, w: 1.48, h: 0.38, fontSize: 16, bold: true, color: C_BLUE, align: "center", fontFace: "Arial" });
   });
 
   // ── Slide 3: Estimation KPIs + Module Breakdown ─────────────────────────────
   const s3 = prs.addSlide();
   addSlideHeader(s3, "Estimation Summary", "Annual hours, FTEs and effort by module");
   addKpiRow(s3, [
-    { label: "Total Annual Hrs (Base)", value: totalBaseHrs.toLocaleString(), sub: "Before AI gains", color: NTT_BLUE },
-    { label: "Total FTEs", value: (totalBaseHrs / 1760).toFixed(1), sub: "Gross team Y1", color: NTT_NAVY },
+    { label: "Total Annual Hrs (Base)", value: totalBaseHrs.toLocaleString(), sub: "Before AI gains", color: C_BLUE },
+    { label: "Total FTEs", value: (totalBaseHrs / 1760).toFixed(1), sub: "Gross team Y1", color: C_NAVY },
     { label: "Enhancement SP/Year", value: (spPerSprint * sprintsPerYear).toLocaleString(), sub: sprintsPerYear + " sprints x " + spPerSprint + " SP", color: "0A7C59" },
     { label: "Integration Overhead", value: integrationHrs + " hrs", sub: selectedIntegrations.length + " integ. x 60 hrs", color: "0891B2" },
   ], 1.3);
@@ -231,13 +218,13 @@ export async function exportToPptx(data) {
     return [m, d.l2vol, d.l2hrs.toLocaleString(), d.l3vol, d.l3hrs.toLocaleString(), tot.toLocaleString(), (tot / 1760).toFixed(1)];
   });
   s3.addText("Module-Level Incident Effort (Annual Base)", {
-    x: 0.4, y: 2.6, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: NTT_BLUE, fontFace: "Arial",
+    x: 0.4, y: 2.6, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: C_BLUE, fontFace: "Arial",
   });
   addTable(s3, ["Module", "L2 Tickets/yr", "L2 Hrs", "L3 Tickets/yr", "L3 Hrs", "Total Inc. Hrs", "FTEs"], modRows, 2.9);
 
   // Enhancement row
   s3.addText("Enhancement Delivery", {
-    x: 0.4, y: 2.9 + modRows.length * 0.28 + 0.42, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: NTT_BLUE, fontFace: "Arial",
+    x: 0.4, y: 2.9 + modRows.length * 0.28 + 0.42, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: C_BLUE, fontFace: "Arial",
   });
   addTable(s3,
     ["Parameter", "Value"],
@@ -256,10 +243,10 @@ export async function exportToPptx(data) {
   const s4 = prs.addSlide();
   addSlideHeader(s4, "3-Year Cost & Effort Summary", "AI efficiency gains applied — 8% Y1 → 18% Y2 → 28% Y3");
   addKpiRow(s4, [
-    { label: "Year 1 Total Cost", value: sym + (annual[0].cost / 1000).toFixed(0) + "K", sub: annual[0].total.toLocaleString() + " hrs · " + (annual[0].total / 1760).toFixed(1) + " FTEs", color: NTT_BLUE },
+    { label: "Year 1 Total Cost", value: sym + (annual[0].cost / 1000).toFixed(0) + "K", sub: annual[0].total.toLocaleString() + " hrs · " + (annual[0].total / 1760).toFixed(1) + " FTEs", color: C_BLUE },
     { label: "Year 2 Total Cost", value: sym + (annual[1].cost / 1000).toFixed(0) + "K", sub: annual[1].total.toLocaleString() + " hrs · " + (annual[1].total / 1760).toFixed(1) + " FTEs", color: "0891B2" },
     { label: "Year 3 Total Cost", value: sym + (annual[2].cost / 1000).toFixed(0) + "K", sub: annual[2].total.toLocaleString() + " hrs · " + (annual[2].total / 1760).toFixed(1) + " FTEs", color: "0A7C59" },
-    { label: "3-Year Programme", value: sym + (totalProgramCost / 1000000).toFixed(2) + "M", sub: "AI saves " + Math.round((1 - annual[2].total / totalBaseHrs) * 100) + "% by Y3", color: NTT_RED },
+    { label: "3-Year Programme", value: sym + (totalProgramCost / 1000000).toFixed(2) + "M", sub: "AI saves " + Math.round((1 - annual[2].total / totalBaseHrs) * 100) + "% by Y3", color: C_RED },
   ], 1.3);
 
   addTable(s4,
@@ -321,7 +308,7 @@ export async function exportToPptx(data) {
     "Incentive: >98% adherence for 3 consecutive months = 1% fee reduction.",
     { x: 0.6, y: 3.1, w: 8.8, h: 1.0, fontSize: 9, color: "2D3748", fontFace: "Arial" }
   );
-  s5.addText("Integration SLA Addendum", { x: 0.4, y: 4.35, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: NTT_BLUE, fontFace: "Arial" });
+  s5.addText("Integration SLA Addendum", { x: 0.4, y: 4.35, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: C_BLUE, fontFace: "Arial" });
   addTable(s5,
     ["Integration", "Monitoring", "Alert SLA", "Fix SLA (P2)", "Escalation"],
     selectedIntegrations.map((i) => [i, "24x7 automated", "15 min", "8 hrs", "GW + Vendor bridge"]),
@@ -335,7 +322,7 @@ export async function exportToPptx(data) {
     { label: "Y1 AI Gain", value: "8%", sub: "Auto-triage & copilot", color: "0891B2" },
     { label: "Y2 AI Gain", value: "18%", sub: "Predictive ops active", color: "0A7C59" },
     { label: "Y3 AI Gain", value: "28%", sub: "Autonomous L2 handling", color: "6D28D9" },
-    { label: "3-Yr Hours Saved", value: (totalBaseHrs * 3 - annual.reduce((s, a) => s + a.total, 0)).toLocaleString(), sub: "vs. no-AI baseline", color: NTT_BLUE },
+    { label: "3-Yr Hours Saved", value: (totalBaseHrs * 3 - annual.reduce((s, a) => s + a.total, 0)).toLocaleString(), sub: "vs. no-AI baseline", color: C_BLUE },
   ], 1.3);
   const aiAccel = [
     ["GW Incident Auto-Triage", "Y1 Q1", "High", "AI classifier routes tickets, suggests resolution from runbooks. Triage: 30min to <5min."],
@@ -345,7 +332,7 @@ export async function exportToPptx(data) {
     ["GW Test DataHub AI", "Y2 Q1", "High", "AI test data generation for GW entities. GDPR masking. Reduces UAT setup by 60%."],
     ["Autonomous L2 Agent", "Y3 Q1", "Transformational", "Agentic AI executes pre-approved runbooks for P3/P4 tickets. Handles 30-40% of L2 volume."],
   ];
-  s6.addText("AI Accelerator Roadmap", { x: 0.4, y: 2.6, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: NTT_BLUE, fontFace: "Arial" });
+  s6.addText("AI Accelerator Roadmap", { x: 0.4, y: 2.6, w: 9.2, h: 0.28, fontSize: 10, bold: true, color: C_BLUE, fontFace: "Arial" });
   addTable(s6, ["Accelerator", "Timeline", "Impact", "Description"], aiAccel, 2.9, { rowH: 0.3 });
 
   // ── Slide 7: KT Plan ────────────────────────────────────────────────────────
@@ -353,15 +340,15 @@ export async function exportToPptx(data) {
   addSlideHeader(s7, "Knowledge Transition Plan", ktMonths + "-month KT + " + calMonths + "-month calibration · SLA live Month " + (ktMonths + calMonths + 1));
   const ktPhases = [
     { month: "Month 1", title: "Discovery & Shadow", color: "D97706",
-      pts: ["Onboard NTT DATA team leads (L2, L3, Enhancement, Integration)", "Shadow incumbent across PC, CC, BC, Jutro", "Receive all runbooks, architecture docs, Gosu code repos", "Deliverable: Discovery Report, Knowledge Gap Analysis"] },
+      pts: ["Onboard AMS team leads (L2, L3, Enhancement, Integration)", "Shadow incumbent across PC, CC, BC, Jutro", "Receive all runbooks, architecture docs, Gosu code repos", "Deliverable: Discovery Report, Knowledge Gap Analysis"] },
     { month: "Month 2", title: "Runbook Creation & Parallel Ops", color: "0891B2",
-      pts: ["Author runbooks for top 50 incident patterns per module", "Gosu code walkthrough: extensions, business rules, plugins", "First NTT DATA-led resolutions with incumbent oversight", "Deliverable: 50 Runbooks, Integration Playbooks"] },
+      pts: ["Author runbooks for top 50 incident patterns per module", "Gosu code walkthrough: extensions, business rules, plugins", "First team-led resolutions with incumbent oversight", "Deliverable: 50 Runbooks, Integration Playbooks"] },
     { month: "Month 3", title: "Primary Accountability & Sign-Off", color: "0A7C59",
-      pts: ["NTT DATA takes primary incident ownership across all modules", "First sprint of enhancements completed and demonstrated", "KT Assessment: knowledge quiz + incident simulation", "Deliverable: KT Sign-Off Certificate, Full Runbook Library"] },
+      pts: ["AMS team takes primary incident ownership across all modules", "First sprint of enhancements completed and demonstrated", "KT Assessment: knowledge quiz + incident simulation", "Deliverable: KT Sign-Off Certificate, Full Runbook Library"] },
   ];
   ktPhases.slice(0, ktMonths).forEach((ph, i) => {
     const x = 0.4 + i * 3.15;
-    s7.addShape("rect", { x, y: 1.3, w: 3.0, h: 4.5, fill: { color: NTT_LIGHT }, line: { color: "E2E8F0", pt: 1 } });
+    s7.addShape("rect", { x, y: 1.3, w: 3.0, h: 4.5, fill: { color: C_LIGHT }, line: { color: "E2E8F0", pt: 1 } });
     s7.addShape("rect", { x, y: 1.3, w: 3.0, h: 0.08, fill: { color: ph.color } });
     s7.addShape("rect", { x, y: 1.3, w: 3.0, h: 0.5, fill: { color: ph.color + "22" } });
     s7.addText(ph.month, { x: x + 0.1, y: 1.32, w: 2.8, h: 0.22, fontSize: 9, bold: true, color: ph.color, fontFace: "Arial" });
@@ -372,14 +359,14 @@ export async function exportToPptx(data) {
   });
   s7.addShape("rect", { x: 0.4, y: 5.95, w: 9.2, h: 0.85, fill: { color: "EFF6FF" }, line: { color: "BFDBFE", pt: 1 } });
   s7.addText("Calibration Period (" + calMonths + " months, Months " + (ktMonths + 1) + "-" + (ktMonths + calMonths) + ")", {
-    x: 0.6, y: 6.0, w: 9.0, h: 0.25, fontSize: 9, bold: true, color: NTT_BLUE, fontFace: "Arial",
+    x: 0.6, y: 6.0, w: 9.0, h: 0.25, fontSize: 9, bold: true, color: C_BLUE, fontFace: "Arial",
   });
   s7.addText(
     "SLA tracked and reported — no penalties apply. Establishes agreed performance baseline. Credits and penalties activate Month " + (ktMonths + calMonths + 1) + ".",
     { x: 0.6, y: 6.25, w: 9.0, h: 0.48, fontSize: 8, color: "2D3748", fontFace: "Arial" }
   );
 
-  await prs.writeFile({ fileName: "NTT-DATA-GW-AMS-Estimator.pptx" });
+  await prs.writeFile({ fileName: "GW-Cloud-AMS-Estimator.pptx" });
 }
 
 // ─── PDF EXPORT ───────────────────────────────────────────────────────────────
@@ -405,24 +392,19 @@ export async function exportToPdf(data) {
     // Red stripe
     doc.setFillColor(228, 0, 43);
     doc.rect(0, 18, W, 1.2, "F");
-    // NTT DATA badge
-    doc.setFillColor(228, 0, 43);
-    doc.rect(8, 3, 22, 8, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(8);
-    doc.setFont("helvetica", "bold");
-    doc.text("NTT DATA", 19, 8.5, { align: "center" });
     // Title
+    doc.setTextColor(255, 255, 255);
     doc.setFontSize(13);
-    doc.text(title, 34, 9);
+    doc.setFont("helvetica", "bold");
+    doc.text(title, 8, 9);
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(147, 197, 253);
-    if (subtitle) doc.text(subtitle, 34, 14);
+    if (subtitle) doc.text(subtitle, 8, 14);
     // Page number
     doc.setTextColor(100, 116, 139);
     doc.setFontSize(7);
-    doc.text("Page " + pageNum + " · NTT DATA Guidewire Practice · Confidential", W - 8, 210 - 5, { align: "right" });
+    doc.text("Page " + pageNum + " · Guidewire Practice · Confidential", W - 8, 210 - 5, { align: "right" });
     doc.setTextColor(0, 0, 0);
   }
 
@@ -460,14 +442,10 @@ export async function exportToPdf(data) {
   doc.rect(0, 119, W, 2, "F");
   doc.setFillColor(228, 0, 43);
   doc.rect(10, 10, 28, 10, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(9);
-  doc.setFont("helvetica", "bold");
-  doc.text("NTT DATA", 24, 16.5, { align: "center" });
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(147, 197, 253);
-  doc.text("GUIDEWIRE PRACTICE", 44, 17);
+  doc.text("GUIDEWIRE PRACTICE", 10, 17);
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(32);
   doc.setFont("helvetica", "bold");
@@ -491,7 +469,7 @@ export async function exportToPdf(data) {
   doc.text("KT: " + ktMonths + " months · Calibration: " + calMonths + " months · SLA live Month " + (ktMonths + calMonths + 1), 10, 162);
   doc.setFontSize(7);
   doc.setTextColor(100, 116, 139);
-  doc.text("NTT DATA — Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), W / 2, 205, { align: "center" });
+  doc.text("Guidewire Practice · Confidential & Proprietary · " + new Date().getFullYear(), W / 2, 205, { align: "center" });
 
   // ── Page 2: Estimation ───────────────────────────────────────────────────────
   doc.addPage();
@@ -661,13 +639,13 @@ export async function exportToPdf(data) {
     head: [["Phase", "Month", "Key Activities", "Deliverable"]],
     body: [
       ["Discovery & Shadow", "Month 1",
-        "Onboard NTT DATA leads. Shadow incumbent. Receive all docs & Gosu repos. Map all integrations.",
+        "Onboard AMS team leads. Shadow incumbent. Receive all docs & Gosu repos. Map all integrations.",
         "Discovery Report, Knowledge Gap Analysis"],
       ["Runbook Creation & Parallel Ops", "Month 2",
-        "Author runbooks for top 50 incident patterns. Gosu walkthrough. First NTT DATA-led resolutions.",
+        "Author runbooks for top 50 incident patterns. Gosu walkthrough. First team-led resolutions.",
         "50 Runbooks, Integration Playbooks"],
       ["Primary Accountability + KT Sign-Off", "Month 3",
-        "NTT DATA takes primary ownership. First sprint delivered. KT assessment + simulation.",
+        "AMS team takes primary ownership. First sprint delivered. KT assessment + simulation.",
         "KT Sign-Off Certificate, Runbook Library"],
     ].slice(0, ktMonths),
     styles: { fontSize: 8 },
@@ -684,7 +662,7 @@ export async function exportToPdf(data) {
     head: [["Risk", "Likelihood", "Impact", "Mitigation"]],
     body: [
       ["Incumbent SI non-cooperation", "Medium", "High", "Contractual KT obligations; weekly progress reviews"],
-      ["Gosu code undocumented", "High", "High", "Code archaeology; NTT DATA Gosu Copilot assists"],
+      ["Gosu code undocumented", "High", "High", "Code archaeology; Gosu Copilot assists discovery"],
       ["Integration access delays", "Medium", "Medium", "Early access requests; parallel provisioning Month 1"],
       ["Volume underestimate", "Medium", "Medium", "30% calibration buffer; agree true-up mechanism"],
       ["Key resource attrition during KT", "Low", "High", "2x coverage per role; docs prevent single-dependency"],
@@ -696,5 +674,5 @@ export async function exportToPdf(data) {
     margin: { left: 8, right: 8 },
   });
 
-  doc.save("NTT-DATA-GW-AMS-Estimator.pdf");
+  doc.save("GW-Cloud-AMS-Estimator.pdf");
 }
